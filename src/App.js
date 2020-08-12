@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import TodoItem from "./TodoItem"
 import todosData from './todosData'
 
 
-class App extends React.Component {
+class App extends Component {
     constructor() {
         super ()
         this.state = {
