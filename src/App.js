@@ -7,12 +7,24 @@ class App extends Component {
     constructor() {
         super ()
         this.state = {
+            loading: true,
             todos: todosData
         }
 
         this.handleChange = this.handleChange.bind(this)
     }
 
+    componentDidMount() {
+        this.setState({ loading: false })
+        fetch(todosData)
+        .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    loading: false,
+                    character: data
+                })
+        })
+    }
     handleChange(id) {
         this.setState(prevState => {
             const updatedTodos = prevState.todos.map(todo => {
@@ -31,8 +43,8 @@ class App extends Component {
     }
 
     render () {
-
-        const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item}
+        
+        const todoItems = this.state.loading ? "loading..." : this.state.todos.map(item => <TodoItem key={item.id} item={item} 
         handleChange={this.handleChange}/>)
     
         return (
