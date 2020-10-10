@@ -1,59 +1,13 @@
-import React, { Component } from 'react'
-import TodoItem from "./TodoItem"
-import todosData from './todosData'
+import React from 'react';
+import './index.css';
+import TodoList from './components/TodoList';
 
-
-class App extends Component {
-    constructor() {
-        super ()
-        this.state = {
-            loading: true,
-            todos: todosData
-        }
-
-        this.handleChange = this.handleChange.bind(this)
-    }
-
-    componentDidMount() {
-        this.setState({ loading: false })
-        fetch(todosData)
-        .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    loading: false,
-                    character: data
-                })
-        })
-    }
-    handleChange(id) {
-        this.setState(prevState => {
-            const updatedTodos = prevState.todos.map(todo => {
-                if (todo.id === id) {
-                    return {
-                        ...todo,
-                        completed: !todo.completed
-                    }
-                }
-                return todo
-            })
-            return {
-                todos: updatedTodos
-            }
-        })
-    }
-
-    render () {
-        
-        const todoItems = this.state.loading ? "loading..." : this.state.todos.map(item => <TodoItem key={item.id} item={item} 
-        handleChange={this.handleChange}/>)
-    
-        return (
-            <div className="todo-list">
-                <h1>To do List</h1>
-                {todoItems}
-            </div>
-        )
-    }
+function App() {
+  return (
+    <div className='todo-app'>
+      <TodoList />
+    </div>
+  );
 }
 
-export default App
+export default App;
